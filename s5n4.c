@@ -1,57 +1,74 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stddef.h>
 
-typedef struct {
-    char title[50];
-    double average_rating;
-} Game;
+struct cat {
+    char x;
+    size_t y;
+};
 
+struct dog {
+    size_t y;
+    char x;
+};
 
-int compare_games(const void *a, const void *b) {
-    Game *game1 = (Game *)a;
-    Game *game2 = (Game *)b;
-    if (game1->average_rating > game2->average_rating) {
-        return -1;
-    } else if (game1->average_rating < game2->average_rating) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
+struct mouse {
+    char x;
+    char y;
+    size_t z;
+};
+
+struct rat {
+    char x;
+    size_t z;
+    char y;
+};
+
+struct fox {
+    char x;
+    struct mouse y;
+};
 
 int main() {
-    int n;
-    scanf("%d", &n);
-    getchar();
+    // Вывод размеров и выравниваний для различных типов
+    printf("Type: char\n");
+    printf("Size: %zu bytes\n", sizeof(char));
+    printf("Alignment: %zu bytes\n\n", _Alignof(char));
 
-    Game *games = (Game *)malloc(n * sizeof(Game));
+    printf("Type: int\n");
+    printf("Size: %zu bytes\n", sizeof(int));
+    printf("Alignment: %zu bytes\n\n", _Alignof(int));
 
-    for (int i = 0; i < n; i++) {
-        char temp;
-        scanf("%[^:]", games[i].title);
-        scanf("%c", &temp);
+    printf("Type: size_t\n");
+    printf("Size: %zu bytes\n", sizeof(size_t));
+    printf("Alignment: %zu bytes\n\n", _Alignof(size_t));
 
-        int k;
-        scanf("%d", &k);
+    printf("Type: int[10]\n");
+    printf("Size: %zu bytes\n", sizeof(int[10]));
+    printf("Alignment: %zu bytes\n\n", _Alignof(int[10]));
 
-        int sum = 0;
-        for (int j = 0; j < k; j++) {
-            int rating;
-            scanf("%d", &rating);
-            sum += rating;
-        }
+    printf("Type: int*\n");
+    printf("Size: %zu bytes\n", sizeof(int*));
+    printf("Alignment: %zu bytes\n\n", _Alignof(int*));
 
-        games[i].average_rating = (double)sum / (double)k;
-        getchar();
-    }
+    printf("Type: struct cat\n");
+    printf("Size: %zu bytes\n", sizeof(struct cat));
+    printf("Alignment: %zu bytes\n\n", _Alignof(struct cat));
 
-    qsort(games, n, sizeof(Game), compare_games);
+    printf("Type: struct dog\n");
+    printf("Size: %zu bytes\n", sizeof(struct dog));
+    printf("Alignment: %zu bytes\n\n", _Alignof(struct dog));
 
-    for (int i = 0; i < n; i++) {
-        printf("%s, %.3f\n", games[i].title, games[i].average_rating);
-    }
+    printf("Type: struct mouse\n");
+    printf("Size: %zu bytes\n", sizeof(struct mouse));
+    printf("Alignment: %zu bytes\n\n", _Alignof(struct mouse));
 
-    free(games);
+    printf("Type: struct rat\n");
+    printf("Size: %zu bytes\n", sizeof(struct rat));
+    printf("Alignment: %zu bytes\n\n", _Alignof(struct rat));
+
+    printf("Type: struct fox\n");
+    printf("Size: %zu bytes\n", sizeof(struct fox));
+    printf("Alignment: %zu bytes\n\n", _Alignof(struct fox));
+
     return 0;
 }
