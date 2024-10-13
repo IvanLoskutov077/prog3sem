@@ -1,0 +1,14 @@
+&a - data
+&b - stack
+&c - data
+&pi - stack
+pi - heap
+pi+5 - heap
+&s - stack
+s - data
+&ps - stack
+ps - text
+f - text
+&f - text
+main - text
+"fox"  - text
